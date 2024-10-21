@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		{% if title %}
+			<title>NyaCat-{{title}}</title>
+		{% else %}
+			<title>NyaCat</title>
+		{% endif %}
+		<style type="text/css">
+			/* 隐藏按钮内文本的下划线 */
+			a {
+				text-decoration: none;
+				color: #FFFFFF;
+			}
+			
+			/* 设置按钮的样式 */
+			li {
+				display: inline;
+				font-size: 25px;
+				padding: 19px;
+				float: left;
+			}
+			
+			ul {
+			    list-style-type: none;
+			    margin-left: 15px;
+				height: 75px;
+			    padding: 0;
+				position: fixed;
+				top: 0;
+				width: 100%;
+				background-color: #02afff;
+				border-radius:25px;
+			}
+			
+			.buttons:active {
+			    background-color: #ffc9ca;
+			    color: white;
+			}
+			
+			/* 设置按钮的悬停效果 */
+			.buttons:hover {
+			    background-color: #ffc9ca;
+			    color: white;
+			}
+			
+			/* 设置按钮的样式 */
+			.in_buttons {
+				margin: 11%;
+			}
+			
+			/* 设置按钮的样式 */
+			.buttons {
+				width: 65px;
+				height: 35px;
+				border:2px solid;
+				border-color: #FFFFFF;
+				border-radius:25px;
+				box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+				transition: background-color 0.3s ease;
+			}
+			
+			/* 设置关于按钮和登录按钮的样式 */
+			#about_button {
+				float: right;
+				margin-right: 20px;
+			}
+			#login_button {
+				float: right;
+				margin-right: 20px;
+			}
+		</style>
+    </head>
+	<body>
+		<ul>
+			<li>
+			<a href="/"><img src="./img/logo.png"></a>
+			</li>
+			<li>
+			<div class="buttons"><a class="in_buttons" href="/">主页</a></div>
+			</li>
+			<li>
+			<div class="buttons"><a class="in_buttons" href="/news">新闻</a></div>
+			</li>
+			<li>
+			<div class="buttons"><a class="in_buttons" href="/contact">联系</a></div>
+			</li>
+			<li id="about_button">
+			<div class="buttons"><a class="in_buttons" href="/about">关于</a></div>
+			</li>
+			<li id="login_button">
+			<div class="buttons"><a class="in_buttons" href="/login">登录</a></div>
+			</li>
+		</ul>
+
+		{% block content %}
+		{% endblock %}
+	</body>
+</html>

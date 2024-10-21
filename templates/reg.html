@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+        #register {
+            width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #register p {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        
+        #register input[type="text"],
+        #register input[type="password"],
+        #register input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            color: #333;
+        }
+        
+        #register button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        #register button:hover {
+            background-color: #45a049;
+        }
+        
+        #reg {
+            color: #47b9ff;
+        }
+
+        .tip {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <form action="/reg" method="post">
+        <div id="register" style="margin-top: 200px;">
+            <p align="center">注册</p>
+            <div class="tip">用户名：</div>
+            <input id="username" type="text" name="username" required />
+            <div class="tip">邮箱：</div>
+            <input id="email" type="email" name="email" required />
+            <div class="tip">密码：</div>
+            <input id="password" type="password" name="password" required />
+            <div class="tip">重复密码：</div>
+            <input id="confirm_password" type="password" name="confirm_password" required />
+            <button type="submit">注册</button>
+            <div>已有账号？<a id="reg" href="/login">点我登录NyaID</a></div>
+        </div>
+    </form>
+</body>
+{% endblock %}
