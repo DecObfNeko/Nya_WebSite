@@ -1,7 +1,13 @@
 from flask import Flask, render_template, request
+import requests
 from lib import data
 
 app = Flask(__name__)
+
+ip = "127.0.0.1"    # 登录验证服务器ip
+port = "8080"   # 登录验证服务器端口
+
+apiserver = data.i_requests(ip, port)
 
 
 @app.route("/")
@@ -11,8 +17,25 @@ def home():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    username = request.form.get("username")
-    password = request.form.get("password")
+    if request.method == 'POST':
+        username = request.form.get("username")
+        password = request.form.get("password")
+        if request.form.get('remember') == "on":
+            remember = True
+        else:
+            remember = False
+
+        data = {
+            "e": username,
+            "pwd": password,
+            "uap": remember
+        }
+        print(data)
+
+        if apiserver.post_api("login", data=data)[0] == True:
+            return render_template("/login.html", title=("登录成功"))
+        return render_template("/login.html", title=("登录失败"))
+        
     return render_template("/login.html", title=("登录"))
 
 @app.route("/reg", methods=["GET", "POST"])
@@ -23,7 +46,7 @@ def reg():
     return render_template("/reg.html", title=("注册"))
 
 @app.route("/contact")
-def lx():
+def contact():
     return render_template("/contact.html", title=("联系"))
 
 
