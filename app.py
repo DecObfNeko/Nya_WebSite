@@ -4,8 +4,8 @@ from lib import data
 
 app = Flask(__name__)
 
-ip = "127.0.0.1"    # 登录验证服务器ip
-port = "8080"   # 登录验证服务器端口
+ip = "127.0.0.1"    # NyanID服务器ip
+port = "8080"   # NyanID服务器端口
 
 apiserver = data.i_requests(ip, port)
 
@@ -26,13 +26,13 @@ def login():
             remember = False
 
         data = {
-            "e": username,
+            "email": username,
             "pwd": password,
-            "uap": remember
+            "p": "127.0.0.1"
         }
         print(data)
 
-        if apiserver.post_api("login", data=data)[0] == True:
+        if apiserver.post_api("login", data=data)[0]:
             return render_template("/login.html", title=("登录成功"))
         return render_template("/login.html", title=("登录失败"))
         
@@ -40,9 +40,24 @@ def login():
 
 @app.route("/reg", methods=["GET", "POST"])
 def reg():
-    email = request.form.get("email")
-    username = request.form.get("username")
-    password = request.form.get("password")
+    if request.method == 'POST':
+        email = request.form.get("email")
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
+
+        data = {
+            "uname" : username,
+            "pwd" : password,
+            "e" :  email,
+            "p" : "127.0.0.1"
+        }
+        if password == confirm_password:
+            if apiserver.post_api("reg", data=data)[0]:
+                return render_template("/login.html", title=("注册成功"))
+            return render_template("login.html", title=("注册失败"))
+        return render_template("login.html", title=("密码不匹配"))
+        
     return render_template("/reg.html", title=("注册"))
 
 @app.route("/contact")
