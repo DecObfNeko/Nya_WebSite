@@ -12,6 +12,7 @@ class i_requests:
             "User-Agent": "PostmanRuntime/7.42.0",
             "Accept": "*/*",
             "Accept-Encoding": "gzip, deflate, br",
+            "User-Agent": "PostmanRuntime/7.42.0",
             "Connection": "keep-alive"
         }
         
@@ -29,11 +30,13 @@ class i_requests:
 if __name__ == "__main__":
     ip = "127.0.0.1"
     port = "8080"
-    api = "login"
+    api = "reg"
     headers = {}
     data = {
-        "e": "1787522500@qq.com",
-        "pwd": "114514",
-        "uap": True
+        "uname" : "icelly",
+        "pwd" : "icelly_QAQ2007",
+        "e" : "icelly_QAQ@foxmail.com",
+        "p" : "127.0.0.1"
     }
-    apiserver = i_requests(ip, port, api, headers, data)
+    apiserver = i_requests(ip, port)
+    print(apiserver.post_api(api, data))

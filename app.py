@@ -32,7 +32,8 @@ def login():
         }
         print(data)
 
-        if apiserver.post_api("login", data=data)[0]:
+        if apiserver.post_api("login", data=data)[0] == True:
+            print(apiserver.post_api("login", data=data))
             return render_template("/login.html", title=("登录成功"))
         return render_template("/login.html", title=("登录失败"))
         
@@ -53,12 +54,27 @@ def reg():
             "p" : "127.0.0.1"
         }
         if password == confirm_password:
-            if apiserver.post_api("reg", data=data)[0]:
+            if apiserver.post_api("reg", data)[0] == True:
+                print(apiserver.post_api("reg", data))
                 return render_template("/login.html", title=("注册成功"))
-            return render_template("login.html", title=("注册失败"))
-        return render_template("login.html", title=("密码不匹配"))
+            return render_template("/login.html", title=("注册失败"))
+        return render_template("/login.html", title=("密码不匹配"))
         
     return render_template("/reg.html", title=("注册"))
+
+@app.route("/verification/<token>")
+def verification(token):
+    headers = {
+        "AuthenticateEmail": "1"
+    }
+
+    data = {
+        "code": token
+    }
+
+    if apiserver.post_api("verification", headers, data)[0] == True:
+        return render_template("/home.html", title=("注册成功了喵~"))
+    return render_template("/home.html", title=("注册失败惹~"))
 
 @app.route("/contact")
 def contact():
