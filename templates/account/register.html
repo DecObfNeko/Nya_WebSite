@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="../assets/img/favicon.png" rel="icon">
+    <meta charset="utf-8">
+    <meta name="author" content="Kodinger">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>NyanID Register | ASIA</title>
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css"></link>
+</head>
+
+
+<style>
+    .my-login-page {
+        background-color: #f7f9fb;
+        font-size: 14px;
+    }
+    
+    .my-login-page .card {
+        border-color: transparent;
+        box-shadow: 50 40px 80px rgba(0, 0, 0, .05);
+    }
+    
+    .my-login-page .card.fat {
+        padding: 10px;
+    }
+    
+    .my-login-page .card .card-title {
+        margin-bottom: 30px;
+    }
+    
+    .my-login-page .form-control {
+        border-width: 2.3px;
+    }
+    
+    .my-login-page .form-group label {
+        width: 100%;
+    }
+    
+    .my-login-page .btn.btn-block {
+        padding: 12px 10px;
+    }
+    
+    @media screen and (max-width: 425px) {
+        .my-login-page .card-wrapper {
+            width: 90%;
+            margin: 0 auto;
+        }
+    }
+    
+    @media screen and (max-width: 320px) {
+        .my-login-page .card.fat {
+            padding: 0;
+            border-radius: 1rem;
+        }
+        .my-login-page .card.fat .card-body {
+            padding: 15px;
+            border-radius: 1rem;
+        }
+    }
+    
+    .hero h1 {
+        margin: 0;
+        font-size: 48px;
+        font-weight: 700;
+        color: #012970;
+    }
+    
+    .hero h2 {
+        color: #444444;
+        margin: 15px 0 0 0;
+        font-size: 26px;
+    }
+    
+    .hero {
+        width: 100%;
+        height: 100vh;
+        background: url(../assets/img/b1e451cd7e6cf09e985bdd06cc10d1ea1b6bf9ec_raw.jpg) top center no-repeat;
+        background-size: cover;
+    }
+    
+    .hero .btn-get-started {
+        margin-top: 30px;
+        line-height: 0;
+        padding: 15px 40px;
+        border-radius: 4px;
+        transition: 0.5s;
+        color: #fff;
+        background: #4154f1;
+        box-shadow: 0px 5px 30px rgba(65, 84, 241, 0.4);
+    }
+    
+    .hero .btn-get-started span {
+        font-family: "Nunito", sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+    
+    .hero .btn-get-started i {
+        margin-left: 5px;
+        font-size: 18px;
+        transition: 0.3s;
+    }
+    
+    .hero .btn-get-started:hover i {
+        transform: translateX(5px);
+    }
+    
+    .hero .hero-img {
+        text-align: right;
+    }
+    
+    @media (min-width: 1024px) {
+        .hero {
+            background-attachment: fixed;
+        }
+    }
+    
+    @media (max-width: 991px) {
+        .hero {
+            height: auto;
+            padding: 120px 0 60px 0;
+        }
+        .hero .hero-img {
+            text-align: center;
+            margin-top: 80px;
+        }
+        .hero .hero-img img {
+            width: 80%;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .hero {
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 32px;
+        }
+        .hero h2 {
+            font-size: 24px;
+        }
+        .hero .hero-img img {
+            width: 100%;
+        }
+    }
+    
+    .copy-success {
+        opacity: 1;
+        color: white;
+        transition: opacity 0.5s ease-in-out;
+    }
+    
+    .copy-fade {
+        opacity: 0;
+    }
+</style>
+
+
+<header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+        <a href="/" class="logo d-flex align-items-center">
+            <img src="../assets/img/logo.png" alt="">
+            <span>NyaCat Cloud</span>
+        </a>
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="nav-link scrollto active" href="">Register</a></li>
+                <li><a class="nav-link scrollto " href="/">HOME</a></li>
+                <li><a class="nav-link scrollto" href="/mc">McServer</a></li>
+                <li class="dropdown">
+                    <a href="#">
+                        <span>API/应用程序接入</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <ul>
+                        <li><a href="/devct">开发者中心</a></li>
+                        <li><a href="/apidocs">API文档</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#">
+                        <span>LEADERBOARDS</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <ul>
+                        <li><a href="/nekolbs">猫粮排行榜</a></li>
+                        <li><a href="/rklbs">Ranked</a></li>
+                    </ul>
+                </li>
+                <li><a class="nav-link scrollto" href="https://namemc.com/server/mc.nyacat.cloud">NAMEMC</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+    </div>
+</header>
+
+<body class="my-login-page">
+    <section id="hero" class="hero d-flex align-items-center">
+        <div class="container">
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <div class="container h-100">
+                    <div class="row justify-content-md-center h-100">
+                        <div class="card-wrapper">
+                            <div class="brand">
+                            </div>
+                            <div class="card fat">
+                                <div class="card-body">
+                                    <h4 class="card-title">Register</h4>
+                                    <form method="POST" class="my-login-validation container flex-column justify-content-center" novalidate="" action="/register">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                            <input type="email" class="form-control" placeholder="Email Address" name="email" id="email" value="" required autofocus>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Username</label>
+                                            <input type="text" class="form-control" placeholder="Username" name="username" id="username" value="" required autofocus>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Password</label>
+                                            <input type="password" class="form-control" placeholder="Password" name="password" id="password" value="" required autofocus>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-checkbox custom-control">
+                                                <input type="checkbox" name="agree" id="agree" class="custom-control-input" required=""> I agree to the <a href="/prypoy">Terms and Conditions</a>
+                                                <div class="invalid-feedback">
+                                                    You must agree with our Terms and Conditions
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Register</button>
+                                        <div class="form-text">{{ msg }}</div>
+                                        <div class="mt-4 text-center">
+                                            Have an account? <a href="/login">Login in</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+<footer id="footer" class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-5 col-md-12 footer-info">
+                    <a href="/" class="logo d-flex align-items-center">
+                        <img src="assets/img/logo.png" alt="">
+                        <span>NyaCat</span>
+                    </a>
+                    <p>Copyleft 2018-2024 DecobfnekoDev Industries, LLC. All Rights Reserved.</p>
+                    <p>The source of the picture resources used on this site is the Internet, if there is any infringement, please contact us to delete.</p>
+                    <a href="https://space.bilibili.com/412860241?spm_id_from=333.337.0.0"><img width="30" src="https://static.myssl.com/icon/2ed43150772156571238ad675d4a1b51" alt="BILIBILI "></a>
+                </div>
+
+                <div class="col-lg-3 col-6 footer-links">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><i class="bi bi-chevron-right"></i> <a href="/joinus">加入我们</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="/prypoy">隐私政策</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="/tos">服务条款</a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="../assets/vendor/aos/aos.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="../assets/vendor/php-email-form/validate.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+    /******************************************
+     * My Login
+     *
+     * Bootstrap 4 Login Page
+     *
+     * @author          Muhamad Nauval Azhar
+     * @uri 			https://nauval.in
+     * @copyright       Copyright (c) 2018 Muhamad Nauval Azhar
+     * @license         My Login is licensed under the MIT license.
+     * @github          https://github.com/nauvalazhar/my-login
+     * @version         1.2.0
+     *
+     * Help me to keep this project alive
+     * https://www.buymeacoffee.com/mhdnauvalazhar
+     * 
+     * 
+     * By @mhdnauvalazhar
+     * 
+     ******************************************/
+
+    'use strict';
+
+    $(function() {
+        $("input[type='password'][data-eye]").each(function(i) {
+            var $this = $(this),
+                id = 'eye-password-' + i,
+                el = $('#' + id);
+
+            $this.wrap($("<div/>", {
+                style: 'position:relative',
+                id: id
+            }));
+
+            $this.css({
+                paddingRight: 60
+            });
+            $this.after($("<div/>", {
+                html: 'Show',
+                class: 'btn btn-primary btn-sm',
+                id: 'passeye-toggle-' + i,
+            }).css({
+                position: 'absolute',
+                right: 10,
+                top: ($this.outerHeight() / 2) - 12,
+                padding: '2px 7px',
+                fontSize: 12,
+                cursor: 'pointer',
+            }));
+
+            $this.after($("<input/>", {
+                type: 'hidden',
+                id: 'passeye-' + i
+            }));
+
+            var invalid_feedback = $this.parent().parent().find('.invalid-feedback');
+
+            if (invalid_feedback.length) {
+                $this.after(invalid_feedback.clone());
+            }
+
+            $this.on("keyup paste", function() {
+                $("#passeye-" + i).val($(this).val());
+            });
+            $("#passeye-toggle-" + i).on("click", function() {
+                if ($this.hasClass("show")) {
+                    $this.attr('type', 'password');
+                    $this.removeClass("show");
+                    $(this).removeClass("btn-outline-primary");
+                } else {
+                    $this.attr('type', 'text');
+                    $this.val($("#passeye-" + i).val());
+                    $this.addClass("show");
+                    $(this).addClass("btn-outline-primary");
+                }
+            });
+        });
+
+        $(".my-login-validation").submit(function() {
+            var form = $(this);
+            if (form[0].checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.addClass('was-validated');
+        });
+    });
+</script>
+</body>
+
+</html>

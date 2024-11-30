@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>NyaCat Cloud | MC Server</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <script src="./assets/js/Event.js"></script>
+    <link href="../assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="./assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+        .hero h1 {
+            margin: 0;
+            font-size: 48px;
+            font-weight: 700;
+            color: #012970;
+        }
+        
+        .hero h2 {
+            color: #444444;
+            margin: 15px 0 0 0;
+            font-size: 26px;
+        }
+        
+        .hero {
+            width: 100%;
+            height: 100vh;
+            background: url(../assets/rimages/1.jpg) top center no-repeat;
+            background-size: cover;
+        }
+        
+        .hero .btn-get-started {
+            margin-top: 30px;
+            line-height: 0;
+            padding: 15px 40px;
+            border-radius: 4px;
+            transition: 0.5s;
+            color: #fff;
+            background: #4154f1;
+            box-shadow: 0px 5px 30px rgba(65, 84, 241, 0.4);
+        }
+        
+        .hero .btn-get-started span {
+            font-family: "Nunito", sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+        
+        .hero .btn-get-started i {
+            margin-left: 5px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        
+        .hero .btn-get-started:hover i {
+            transform: translateX(5px);
+        }
+        
+        .hero .hero-img {
+            text-align: right;
+        }
+        
+        @media (min-width: 1024px) {
+            .hero {
+                background-attachment: fixed;
+            }
+        }
+        
+        @media (max-width: 991px) {
+            .hero {
+                height: auto;
+                padding: 120px 0 60px 0;
+            }
+            .hero .hero-img {
+                text-align: center;
+                margin-top: 80px;
+            }
+            .hero .hero-img img {
+                width: 80%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                text-align: center;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero h2 {
+                font-size: 24px;
+            }
+            .hero .hero-img img {
+                width: 100%;
+            }
+        }
+        
+        .copy-success {
+            opacity: 1;
+            color: white;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .copy-fade {
+            opacity: 0;
+        }
+    </style>
+
+    <body>
+        <header id="header" class="header fixed-top">
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+                <a href="#" class="logo d-flex align-items-center">
+                    <img src="assets/img/logo.png" alt="">
+                    <span>NyaCat Cloud</span>
+                </a>
+
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto" href="/">HOME</a></li>
+                        <li><a class="nav-link scrollto active" href="/mc">McServer</a></li>
+                        <li class="dropdown">
+                            <a href="#">
+                                <span>API/应用程序接入</span>
+                                <i class="bi bi-chevron-down"></i>
+                            </a>
+                            <ul>
+                                <li><a href="/devct">开发者中心</a></li>
+                                <li><a href="/apidocs">API文档</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">
+                                <span>LEADERBOARDS</span>
+                                <i class="bi bi-chevron-down"></i>
+                            </a>
+                            <ul>
+                                <li><a href="/nekolbs">猫粮排行榜</a></li>
+                                <li><a href="/rklbs">Ranked</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="nav-link scrollto" href="https://namemc.com/server/mc.nyacat.cloud">NAMEMC</a></li>
+                        {{ fhkos|safe }}
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+                <!-- .navbar -->
+            </div>
+        </header>
+        <section id="hero" class="hero d-flex align-items-center">
+            <div class="container ">
+                <div class="flex-column justify-content-center">
+                    <h1 data-aos="fade-up">NyaCat Cloud - A Minecraft PVP/SMP Server</h1>
+                    <h2 data-aos="fade-up" class="flex-column justify-content-center">我们是一群谐铀爱的猫猫ฅ(＞﹏＜)</h2>
+                    <h2 data-aos="fade-up" class="flex-column justify-content-center">现在就加入我们吧喵~</h2>
+                    <div data-aos="fade-up" class="text-center text-lg-start">
+                        <a href="javascript:copyIP()" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                            <span>Copy IP</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="counts" class="counts">
+            <div class="container" data-aos="fade-up">
+                <div class="row gy-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="count-box">
+                            <img src="assets/img/bungeecord-logo.png" alt="" height="64" width="64">
+                            <div>
+                                <span data-purecounter-start="0" data-purecounter-end="{{online}}" data-purecounter-duration="2" class="purecounter"></span>
+                                <p>Minecraft Server Online</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-2">
+                        <div class="count-box">
+                            <img src="assets/img/0610131BAEFC80C0399E2D5759637DEB.gif" alt="" height="64" width="64">
+                            <div>
+                                <span data-purecounter-start="0" data-purecounter-end="{{bans}}" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>HoshinoAntiCheat累计禁封{{bans}}名杂鱼酱喵~</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<iframe style="width:728px;height:90px;max-width:100%;border:none;display:block;margin:auto" src="https://zh-cn.namemc.com/server/mc.nyacat.cloud/embed" width="728" height="90"></iframe>-->
+
+                </div>
+
+            </div>
+        </section>
+        <section class="faq">
+
+            <div class="container" data-aos="fade-up">
+
+                <header class="section-header">
+                    <h2>F.A.Q</h2>
+                    <p>Frequently Asked Questions</p>
+                </header>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="accordion accordion-flush" id="faqlist1">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
+                    Can I play using the cheat client?
+                  </button>
+                                </h2>
+                                <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                                    <div class="accordion-body">
+                                        No, you can't, you will get a ban for it
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="accordion accordion-flush" id="faqlist2">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-1">
+                    Why can't I join the server?
+                  </button>
+                                </h2>
+                                <div id="faq2-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                                    <div class="accordion-body">
+                                        We have turned on OnlineMode, if you haven't purchased Minecraft, please go to Minecraft.net; If you already have a Minecraft account and make sure it's logged in, check that your network settings are correct
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="accordion accordion-flush" id="faqlist3">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3-content-3">
+                    一些会被BAN的行为
+                  </button>
+                                </h2>
+                                <div id="faq3-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                                    <div class="accordion-body">
+                                        在SMP生电服未经他人允许偷东西[8h-12h]
+                                        <br> 在SMP生电服搞破坏(如趁别人下线偷家)[1d-3d]
+                                        <br> 对游戏内玩家进行言语辱骂,恶意针对,人身攻击[30d-PermanentBan]
+                                        <br> 使用非法第三方工具进行作弊[7d-15d-30d-90d]
+                                        <br> 在Rank赛中ELO Boosting[PVP.9d-60d; ELO Cleared]
+                                        <br> 在聊天栏发布违法/黄赌毒/广告/青少年不良信息[PermanentBan;此处罚无法申诉]
+                                        <br> 在聊天栏散布政治谣言/不利于团结/引战的消息[PermanentBan;此处罚无法申诉]
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+        <section>
+            <div class="container ">
+                <div class="flex-column justify-content-center">
+                    <h1 data-aos="fade-up">------**-**-**-**-**-**-**-**-**-**-**-**------</h1>
+                    <h3 data-aos="fade-up" class="flex-column justify-content-center">我们是一群谐铀爱的猫猫ฅ(＞﹏＜)</h3>
+                    <h2 data-aos="fade-up" class="flex-column justify-content-center">现在就加入我们吧喵~</h2>
+                </div>
+            </div>
+
+
+
+
+        </section>
+    </body>
+    <footer id="footer" class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-5 col-md-12 footer-info">
+                        <a href="index.html" class="logo d-flex align-items-center">
+                            <img src="assets/img/logo.png" alt="">
+                            <span>NyaCat</span>
+                        </a>
+                        <p>Copyleft 2018-2024 DecobfnekoDev Industries, LLC. All Rights Reserved.</p>
+                        <p>The source of the picture resources used on this site is the Internet, if there is any infringement, please contact us to delete.</p>
+                        <a href="https://space.bilibili.com/412860241?spm_id_from=333.337.0.0"><img width="30" src="https://static.myssl.com/icon/2ed43150772156571238ad675d4a1b51" alt="BILIBILI "></a>
+                    </div>
+
+                    <div class="col-lg-3 col-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/joinus">加入我们</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/prypoy">隐私政策</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/tos">服务条款</a></li>
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="../assets/vendor/aos/aos.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="../assets/vendor/php-email-form/validate.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+    </body>
+
+</html>
