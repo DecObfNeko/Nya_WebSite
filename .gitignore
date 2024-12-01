@@ -1,0 +1,6 @@
+*.key
+*.crt
+start.bat
+uwsgi.ini
+/__pycache__/
+/.idea/
