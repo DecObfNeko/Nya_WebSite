@@ -4,3 +4,4 @@ start.bat
 uwsgi.ini
 /__pycache__/
 /.idea/
+/lib/__pycache__/
