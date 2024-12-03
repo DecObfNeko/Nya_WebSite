@@ -9,10 +9,10 @@ from Crypto.Random import random  # 从Crypto库中导入random，用于生成�
 from flask import *  # 从flask库中导入所有内容
 from flask_socketio import SocketIO  # 导入Flask-SocketIO，用于实现WebSocket通信
 
-ip = "192.168.0.106"
-port = 8080
+ip = "127.0.0.1"
+port = 1145
 
-apiserver = data.i_requests(ip, port)
+api = data.i_requests(ip, port)
 
 # 初始化Flask应用
 app = Flask(__name__, static_url_path='', static_folder='templates', template_folder='templates')
@@ -52,7 +52,7 @@ def home():
                 "Authorization": "Bearer " + Dcookie,
                 "Event": "Gi"
             }
-            data = data = apiserver.post_api("v1", "userinfo", headers)[1]
+            data = requests.get("http://127.0.0.1:8080/api/zako/v1/userinfo", headers=headers)
             username = data['username']
             fhkos = f'''
             <li class="dropdown"><a href="#"><span>{username}</span> <i class="bi bi-chevron-down"></i></a>
@@ -66,42 +66,34 @@ def home():
             fhkos = '<li><a class="getstarted scrollto" href="login?page=client">Login</a></li>'
     
     # 查询服务器状态
-    stat, data = apiserver.userinfo()
+    stat, server_data = api.serverinfo()
 
     # 生成随机图片编号
     randomimg = random.randint(1, 31)
     
     # 渲染首页，传递相关变量
-    return render_template('index.html', stat=stat, fhkos=fhkos, randomimg=randomimg, bans=data['BannedUser'],
-                           reg=data['AllUser'], regapp=data['AllApplication'],
-                           event=data['NumberOfEvents'])
+    return render_template('index.html', stat=stat, fhkos=fhkos, randomimg=randomimg, bans=server_data['BannedUser'],
+                           reg=server_data['AllUser'], regapp=server_data['AllApplication'],
+                           event=server_data['NumberOfEvents'])
 
 # 定义登录页面路由
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-        if request.method == 'POST':
-            username = request.form.get("username")
-            password = request.form.get("password")
-        if request.form.get('remember') == "on":
-            remember = True
-        else:
-            remember = False
-
-        data = {
-            "email": username,
-            "pwd": password,
-        }
-        print(data)
-
-        if apiserver.post_api("v1", "login", data=data)[0] == True:
-            print(apiserver.post_api("v1", "login", data=data))
-            return render_template('account/login.html', title=("登录成功"))
-        return render_template('account/login.html', title=("登录失败"))
+    if request.method == 'POST':
+        if api.login(request.form.get("email"), request.form.get("password")):
+            return redirect(url_for('home'), code=301)
+    return render_template('account/login.html')
 
 # 定义注册页面路由
 @app.route('/register', methods=['GET', 'POST'])
 def reg():
     return render_template('account/register.html')  # 渲染注册页面
+
+@app.route('/verification/<token>')
+def verification(token):
+    if api.verification(token):
+        return redirect(url_for('login'), code=301)
+    return redirect(url_for('reg'), code=301)
 
 # 定义忘记密码页面路由
 @app.route('/forgot', methods=['GET', 'POST'])

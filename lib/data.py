@@ -1,51 +1,57 @@
 import requests
 
+
 class i_requests:
+    default_headers = {
+        "Content-Type": "application/json",
+        "User-Agent": "PostmanRuntime/7.42.0",
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive"
+    }
+
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
 
-    def post_api(self, version, api_path, headers=None, data=None):
-        url = f"http://{self.ip}:{self.port}/api/zako/{version}/{api_path}"
-        default_headers = {
-            "Content-Type": "application/json",
-            "User-Agent": "PostmanRuntime/7.42.0",
-            "Accept": "*/*",
-            "Accept-Encoding": "gzip, deflate, br",
-            "Connection": "keep-alive"
+    def serverinfo(self):
+        data = {
+            "AllUser": "0",
+            "BannedUser": "0",
+            "AllApplication": "0",
+            "NumberOfEvents": 0
         }
-        
-        if headers is not None:
-            default_headers.update(headers)
- 
-        try:
-            response = requests.post(url, headers=default_headers, json=data)
-            response.raise_for_status()  # 这将引发HTTPError异常，如果响应状态码表示错误
-            return response.json()
-        except requests.exceptions.RequestException as e:
-            print(f"Request failed: {e}")
-            return False
-    
-    def userinfo(self):
-        try:
-            user_info = self.post_api("v1", "userinfo")
-            if user_info is False:
-                return "Server is Down", {"AllUser": "0", "BannedUser": "0", "AllApplication": "0", "NumberOfEvents": 0}
-            return "Welcome to NyaCat！", user_info
-        except Exception as e:
-            return "Error processing user info", {"error": str(e)}
 
+        try:
+            server_info = requests.get(url=f"http://{self.ip}:{self.port}/api/zako/v2/server", headers=self.default_headers)
+            print(server_info.json())
+            return "Welcome to NyaCat！", server_info.json()
+        except Exception as e:
+            return "Server is Down", data
+
+    def login(self, email, passwd):
+        data = {
+            "email": email,
+            "pwd": passwd
+        }
+
+        try:
+            login_data = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/login", headers=self.default_headers, json=data)
+            if login_data.status_code == 200:
+                return True
+        except Exception as e:
+            return False
+        
+    def verification(self, token):
+        data = {
+            "code": token
+        }
+
+        verification = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/verification", headers=self.default_headers, json=data)
+        if verification.status_code == 200:
+            return True
+        return False
 
 if __name__ == "__main__":
-    ip = "127.0.0.1"
-    port = "8080"
-    api = "reg"
-    headers = {}
-    data = {
-        "uname" : "icelly",
-        "pwd" : "icelly_QAQ2007",
-        "e" : "icelly_QAQ@foxmail.com",
-        "p" : "127.0.0.1"
-    }
-    apiserver = i_requests(ip, port)
-    print(apiserver.post_api(api, data))
+    api = i_requests("127.0.0.1", 1145)
+    api.serverinfo()
