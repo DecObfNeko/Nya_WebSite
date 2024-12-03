@@ -52,7 +52,7 @@ def home():
                 "Authorization": "Bearer " + Dcookie,
                 "Event": "Gi"
             }
-            data = requests.get("http://127.0.0.1:8080/api/zako/v1/userinfo", headers=headers)
+            data = requests.get(f"http://{ip}:{port}/api/zako/v1/userinfo", headers=headers)
             username = data['username']
             fhkos = f'''
             <li class="dropdown"><a href="#"><span>{username}</span> <i class="bi bi-chevron-down"></i></a>
@@ -80,13 +80,23 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        if api.login(request.form.get("email"), request.form.get("password")):
-            return redirect(url_for('home'), code=301)
+        stat, token = api.login(request.form.get("email"), request.form.get("password"))
+        print(stat, token)
+        if stat:
+            response = make_response(redirect(url_for('home'), code=301))
+            response.set_cookie('MiaoWu', token, httponly=True)
+            return response
     return render_template('account/login.html')
 
 # 定义注册页面路由
 @app.route('/register', methods=['GET', 'POST'])
 def reg():
+    if request.method == 'POST':
+        stat, message = api.register(request.form.get("username"), request.form.get("email"), request.form.get("password"))
+        if stat:
+            return redirect(url_for('login'), code=301)
+        else:
+            return render_template('account/register.html', msg=message)
     return render_template('account/register.html')  # 渲染注册页面
 
 @app.route('/verification/<token>')
@@ -103,7 +113,7 @@ def forgot():
 # 定义用户信息页面路由
 @app.route('/user/<uid>', methods=['GET'])
 def user(uid):
-    return uid  # 返回用户ID（此处仅为示例，实际应用中应返回用户信息）
+    return uid
 
 # 主程序入口
 if __name__ == '__main__':

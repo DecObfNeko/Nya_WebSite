@@ -1,4 +1,5 @@
 import requests
+import requests.cookies
 
 
 class i_requests:
@@ -24,9 +25,8 @@ class i_requests:
 
         try:
             server_info = requests.get(url=f"http://{self.ip}:{self.port}/api/zako/v2/server", headers=self.default_headers)
-            print(server_info.json())
             return "Welcome to NyaCat！", server_info.json()
-        except Exception as e:
+        except:
             return "Server is Down", data
 
     def login(self, email, passwd):
@@ -38,9 +38,26 @@ class i_requests:
         try:
             login_data = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/login", headers=self.default_headers, json=data)
             if login_data.status_code == 200:
-                return True
-        except Exception as e:
-            return False
+                return True, login_data.json()['token']
+            else:
+                return False, None
+        except:
+            return False, None
+        
+    def register(self, username, email, passwd):
+        data = {
+            "uname": username,
+            "pwd": passwd,
+            "e": email
+        }
+        try:
+            register_data = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/register", headers=self.default_headers, json=data)
+            if register_data.status_code == 200:
+                return True, None
+            else:
+                return False, register_data.json()['message']
+        except:
+            return False, None
         
     def verification(self, token):
         data = {
