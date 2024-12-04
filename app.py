@@ -82,12 +82,14 @@ def login():
     if request.method == 'POST':
         email = request.form.get("email")
         passwd = request.form.get("password")
-        stat, token = api.login(email, passwd)
+        stat, token, message = api.login(email, passwd)
         print(stat, token)
         if stat:
             response = make_response(redirect(url_for('home'), code=301))
             response.set_cookie('MiaoWu', token, httponly=True)
             return response
+        else:
+            return render_template('account/login.html', msg=message)
     return render_template('account/login.html')
 
 # 定义注册页面路由
@@ -99,7 +101,7 @@ def reg():
         passwd = request.form.get("password")
         stat, message = api.register(username, email, passwd)
         if stat:
-            return redirect(url_for('login'), code=301)
+            return render_template('account/register.html', msg=message)
         else:
             return render_template('account/register.html', msg=message)
     return render_template('account/register.html')  # 渲染注册页面
@@ -113,12 +115,27 @@ def verification(token):
 # 定义忘记密码页面路由
 @app.route('/forgot', methods=['GET', 'POST'])
 def forgot():
+    global re_email
     if request.method == 'POST':
-        email = request.form.get("email")
-        stat, message = api.forgot(email)
+        re_email = request.form.get("email")
+        stat, message = api.forgot(re_email)
         if stat:
+            return redirect(url_for('repasswd'), code=301)
+        else:
             return render_template('account/forgot.html', msg=message)
-    return render_template('account/forgot.html', msg=message)  # 渲染忘记密码页面
+    return render_template('account/forgot.html')  # 渲染忘记密码页面
+
+@app.route('/resetpassword', methods=['GET', 'POST'])
+def repasswd():
+    if request.method == 'POST':
+        code = request.form.get("verification_code")
+        passwd = request.form.get("New_password")
+        stat, message = api.resetpassword(re_email, code, passwd)
+        if stat:
+            return render_template('account/resetpassword.html', account=re_email, msg=message)
+        else:
+            return render_template('account/resetpassword.html', account=re_email, msg=message)
+    return render_template('account/resetpassword.html', account=re_email)
 
 # 定义用户信息页面路由
 @app.route('/user/<uid>', methods=['GET'])

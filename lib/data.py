@@ -43,11 +43,11 @@ class i_requests:
         try:
             login_data = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/login", headers=self.default_headers, json=data)
             if login_data.status_code == 200:
-                return True, login_data.json()['token']
+                return True, login_data.json()['token'], login_data.json()['message']
             else:
-                return False, None
+                return False, None, login_data.json()['message']
         except:
-            return False, None
+            return False, None, None
         
     def register(self, username, email, passwd):
         data = {
@@ -58,7 +58,7 @@ class i_requests:
         try:
             register_data = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/register", headers=self.default_headers, json=data)
             if register_data.status_code == 200:
-                return True, None
+                return True, register_data.json()['message']
             else:
                 return False, register_data.json()['message']
         except:
@@ -71,6 +71,21 @@ class i_requests:
                 return True, forgot_data.json()['message']
             else:
                 return False, forgot_data.json()['message']
+        except:
+            return False, None
+        
+    def resetpassword(self, email, code, passwd):
+        data = {
+            "email": email,
+            "code": code,
+            "password": passwd
+        }
+        try:
+            repasswd = requests.post(f"http://{self.ip}:{self.port}/api/zako/v1/forgetpwd", headers=self.default_headers, json=data)
+            if repasswd.status_code == 200:
+                return True, repasswd.json()['message']
+            else:
+                return False, repasswd.json()['message']
         except:
             return False, None
         
