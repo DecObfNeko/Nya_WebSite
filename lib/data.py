@@ -1,6 +1,11 @@
 import requests
-import requests.cookies
+import random
 
+welcome_msg = [
+    "Welcome to NyaCat!",
+    "Here is NyaCat!",
+    "MiaoWu~~~"
+]
 
 class i_requests:
     default_headers = {
@@ -25,7 +30,7 @@ class i_requests:
 
         try:
             server_info = requests.get(url=f"http://{self.ip}:{self.port}/api/zako/v2/server", headers=self.default_headers)
-            return "Welcome to NyaCat！", server_info.json()
+            return welcome_msg[random.randint(0, 2)], server_info.json()
         except:
             return "Server is Down", data
 
@@ -59,6 +64,16 @@ class i_requests:
         except:
             return False, None
         
+    def forgot(self, email):
+        try:
+            forgot_data = requests.get(f"http://{self.ip}:{self.port}/api/zako/v1/forgetpwd?email={email}", headers=self.default_headers)
+            if forgot_data.status_code == 200:
+                return True, forgot_data.json()['message']
+            else:
+                return False, forgot_data.json()['message']
+        except:
+            return False, None
+        
     def verification(self, token):
         data = {
             "code": token
@@ -71,4 +86,29 @@ class i_requests:
 
 if __name__ == "__main__":
     api = i_requests("127.0.0.1", 1145)
-    api.serverinfo()
+    api.forgot("1787522500@qq.com")
+
+
+'''
+ *                    _ooOoo_
+ *                   o8888888o
+ *                   88" . "88
+ *                   (| -_- |)
+ *                    O\ = /O
+ *                ____/`---'\____
+ *              .   ' \\| |// `.
+ *               / \\||| : |||// \
+ *             / _||||| -:- |||||- \
+ *               | | \\\ - /// | |
+ *             | \_| ''\---/'' | |
+ *              \ .-\__ `-` ___/-. /
+ *           ___`. .' /--.--\ `. . __
+ *        ."" '< `.___\_<|>_/___.' >'"".
+ *       | | : `- \`.;`\ _ /`;.`/ - ` : | |
+ *         \ \ `-. \_ __\ /__ _/ .-` / /
+ * ======`-.____`-.___\_____/___.-`____.-'======
+ *                    `=---='
+ *
+ * .............................................
+ *          佛祖保佑             永无BUG
+'''

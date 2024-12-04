@@ -80,7 +80,9 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        stat, token = api.login(request.form.get("email"), request.form.get("password"))
+        email = request.form.get("email")
+        passwd = request.form.get("password")
+        stat, token = api.login(email, passwd)
         print(stat, token)
         if stat:
             response = make_response(redirect(url_for('home'), code=301))
@@ -92,7 +94,10 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def reg():
     if request.method == 'POST':
-        stat, message = api.register(request.form.get("username"), request.form.get("email"), request.form.get("password"))
+        username = request.form.get("username")
+        email = request.form.get("email")
+        passwd = request.form.get("password")
+        stat, message = api.register(username, email, passwd)
         if stat:
             return redirect(url_for('login'), code=301)
         else:
@@ -108,7 +113,12 @@ def verification(token):
 # 定义忘记密码页面路由
 @app.route('/forgot', methods=['GET', 'POST'])
 def forgot():
-    return render_template('account/forgot.html')  # 渲染忘记密码页面
+    if request.method == 'POST':
+        email = request.form.get("email")
+        stat, message = api.forgot(email)
+        if stat:
+            return render_template('account/forgot.html', msg=message)
+    return render_template('account/forgot.html', msg=message)  # 渲染忘记密码页面
 
 # 定义用户信息页面路由
 @app.route('/user/<uid>', methods=['GET'])
