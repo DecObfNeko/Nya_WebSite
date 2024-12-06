@@ -41,20 +41,15 @@ def mcserver():
 def home():
     # 根据用户是否登录，显示不同的导航菜单项
     if request.cookies.get("MiaoWu") == None:
+        print('1')
         fhkos = '<li><a class="getstarted scrollto" href="login?page=client">Login</a></li>'
     else:
         try:
             # 解码用户认证cookie，获取用户信息
             cookie = request.cookies.get("MiaoWu")
-            decoded_bytes = base64.b64decode(cookie)
-            Dcookie = decoded_bytes.decode('utf-8')
-            headers = {
-                "Authorization": "Bearer " + Dcookie,
-                "Event": "Gi"
-            }
-            data = requests.get(f"http://{ip}:{port}/api/zako/v1/userinfo", headers=headers)
-            username = data['username']
-            fhkos = f'''
+            stat, username = api.checkLogin(cookie)
+            if stat:
+                fhkos = f'''
             <li class="dropdown"><a href="#"><span>{username}</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
             <li><a href="/user">我的档案</a></li>
@@ -62,6 +57,8 @@ def home():
             </ul>
             </li>
             '''
+            else:
+                fhkos = '<li><a class="getstarted scrollto" href="login?page=client">Login</a></li>'
         except:
             fhkos = '<li><a class="getstarted scrollto" href="login?page=client">Login</a></li>'
     
@@ -82,11 +79,11 @@ def login():
     if request.method == 'POST':
         email = request.form.get("email")
         passwd = request.form.get("password")
-        stat, token, message = api.login(email, passwd)
-        print(stat, token)
+        stat, data, message = api.login(email, passwd)
+        print(stat, data, message)
         if stat:
             response = make_response(redirect(url_for('home'), code=301))
-            response.set_cookie('MiaoWu', token, httponly=True)
+            response.set_cookie('MiaoWu', data, httponly=True)
             return response
         else:
             return render_template('account/login.html', msg=message)

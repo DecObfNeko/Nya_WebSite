@@ -1,5 +1,6 @@
 import requests
 import random
+import base64
 
 welcome_msg = [
     "Welcome to NyaCat!",
@@ -43,10 +44,13 @@ class i_requests:
         try:
             login_data = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/login", headers=self.default_headers, json=data)
             if login_data.status_code == 200:
-                return True, login_data.json()['token'], login_data.json()['message']
+                print("ok")
+                return True, login_data.json()['data'], None
             else:
+                print("no")
                 return False, None, login_data.json()['message']
         except:
+            print("f")
             return False, None, None
         
     def register(self, username, email, passwd):
@@ -98,6 +102,22 @@ class i_requests:
         if verification.status_code == 200:
             return True
         return False
+
+    def checkLogin(self, cookie):
+        try:
+            decoded_bytes = base64.b64decode(cookie)
+            Dcookie = decoded_bytes.decode('utf-8')
+            headers = {
+                "Authorization": "Bearer " + Dcookie,
+                "Event": "Gi"
+            }
+            checkLogin = requests.get(f"http://{self.ip}:{self.port}/api/zako/v1/userinfo", headers=headers)
+            if checkLogin.status_code == 200:
+                return True, checkLogin.json()['username']
+            else:
+                return False, None
+        except:
+            return False, None
 
 if __name__ == "__main__":
     api = i_requests("127.0.0.1", 1145)
