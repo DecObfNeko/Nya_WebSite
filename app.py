@@ -1,7 +1,5 @@
 # 导入必要的库
-import base64
 import ssl
-import requests  # 用于发起HTTP请求
 
 from lib import data
 from ssl import *  # 导入ssl模块的所有内容
@@ -19,12 +17,14 @@ app = Flask(__name__, static_url_path='', static_folder='templates', template_fo
 app.config['SECRET_KEY'] = 'secret!'  # 设置Flask应用的密钥，用于会话加密等
 socketio = SocketIO(app)  # 初始化SocketIO对象，绑定到Flask应用
 
-
-
 # 定义404错误处理函数
 @app.errorhandler(404)
 def server_error(error):
     return render_template('assets/ErrPage/404.html')  # 渲染404错误页面
+
+@app.route('/repasswdErr')
+def repasswdErr():
+    return render_template('assets/ErrPage/repasswdErr.html')
 
 # 定义隐私政策页面路由
 @app.route('/prypoy')
@@ -39,9 +39,10 @@ def mcserver():
 # 定义首页路由及逻辑
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    userip = request.remote_addr # 获取用户ip
+
     # 根据用户是否登录，显示不同的导航菜单项
     if request.cookies.get("MiaoWu") == None:
-        print('1')
         fhkos = '<li><a class="getstarted scrollto" href="login?page=client">Login</a></li>'
     else:
         try:
@@ -63,10 +64,13 @@ def home():
             fhkos = '<li><a class="getstarted scrollto" href="login?page=client">Login</a></li>'
     
     # 查询服务器状态
-    stat, server_data = api.serverinfo()
+    stat, server_data = api.serverinfo(userip)
 
     # 生成随机图片编号
     randomimg = random.randint(1, 31)
+
+    # 恢复参数
+    session['re_email'] = False
     
     # 渲染首页，传递相关变量
     return render_template('index.html', stat=stat, fhkos=fhkos, randomimg=randomimg, bans=server_data['BannedUser'],
@@ -76,10 +80,14 @@ def home():
 # 定义登录页面路由
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    userip = request.remote_addr # 获取用户ip
+
+    if request.cookies.get("MiaoWu") != None:
+        return redirect(url_for('home'), code=301)
     if request.method == 'POST':
         email = request.form.get("email")
         passwd = request.form.get("password")
-        stat, data, message = api.login(email, passwd)
+        stat, data, message = api.login(userip, email, passwd)
         print(stat, data, message)
         if stat:
             response = make_response(redirect(url_for('home'), code=301))
@@ -92,11 +100,15 @@ def login():
 # 定义注册页面路由
 @app.route('/register', methods=['GET', 'POST'])
 def reg():
+    userip = request.remote_addr # 获取用户ip
+
+    if request.cookies.get("MiaoWu") != None:
+        return redirect(url_for('home'), code=301)
     if request.method == 'POST':
         username = request.form.get("username")
         email = request.form.get("email")
         passwd = request.form.get("password")
-        stat, message = api.register(username, email, passwd)
+        stat, message = api.register(userip, username, email, passwd)
         if stat:
             return render_template('account/register.html', msg=message)
         else:
@@ -105,17 +117,21 @@ def reg():
 
 @app.route('/verification/<token>')
 def verification(token):
-    if api.verification(token):
+    userip = request.remote_addr # 获取用户ip
+
+    if api.verification(userip, token):
         return redirect(url_for('login'), code=301)
     return redirect(url_for('reg'), code=301)
 
 # 定义忘记密码页面路由
 @app.route('/forgot', methods=['GET', 'POST'])
 def forgot():
-    global re_email
+    userip = request.remote_addr # 获取用户ip
+
     if request.method == 'POST':
-        re_email = request.form.get("email")
-        stat, message = api.forgot(re_email)
+        email = request.form.get("email")
+        session["re_email"] = email
+        stat, message = api.forgot(userip, email)
         if stat:
             return redirect(url_for('repasswd'), code=301)
         else:
@@ -124,15 +140,20 @@ def forgot():
 
 @app.route('/resetpassword', methods=['GET', 'POST'])
 def repasswd():
+    userip = request.remote_addr # 获取用户ip
+
+    email = session.get("re_email")
+    if email == False:
+        return redirect(url_for('repasswdErr'))
     if request.method == 'POST':
         code = request.form.get("verification_code")
         passwd = request.form.get("New_password")
-        stat, message = api.resetpassword(re_email, code, passwd)
+        stat, message = api.resetpassword(userip, email, code, passwd)
         if stat:
-            return render_template('account/resetpassword.html', account=re_email, msg=message)
+            return render_template('account/resetpassword.html', account=email, msg=message)
         else:
-            return render_template('account/resetpassword.html', account=re_email, msg=message)
-    return render_template('account/resetpassword.html', account=re_email)
+            return render_template('account/resetpassword.html', account=email, msg=message)
+    return render_template('account/resetpassword.html', account=email)
 
 # 定义用户信息页面路由
 @app.route('/user/<uid>', methods=['GET'])

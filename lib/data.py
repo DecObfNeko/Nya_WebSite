@@ -21,7 +21,13 @@ class i_requests:
         self.ip = ip
         self.port = port
 
-    def serverinfo(self):
+    def serverinfo(self, userip):
+        headers = {
+            "UserIP": userip
+        }
+
+        headers.update(self.default_headers)
+
         data = {
             "AllUser": "0",
             "BannedUser": "0",
@@ -30,19 +36,25 @@ class i_requests:
         }
 
         try:
-            server_info = requests.get(url=f"http://{self.ip}:{self.port}/api/zako/v2/server", headers=self.default_headers)
+            server_info = requests.get(url=f"http://{self.ip}:{self.port}/api/zako/v2/server", headers=headers)
             return welcome_msg[random.randint(0, 2)], server_info.json()
         except:
             return "Server is Down", data
 
-    def login(self, email, passwd):
+    def login(self, userip, email, passwd):
+        headers = {
+            "UserIP": userip
+        }
+
+        headers.update(self.default_headers)
+
         data = {
             "email": email,
             "pwd": passwd
         }
 
         try:
-            login_data = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/login", headers=self.default_headers, json=data)
+            login_data = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/login", headers=headers, json=data)
             if login_data.status_code == 200:
                 print("ok")
                 return True, login_data.json()['data'], None
@@ -53,14 +65,20 @@ class i_requests:
             print("f")
             return False, None, None
         
-    def register(self, username, email, passwd):
+    def register(self, userip, username, email, passwd):
+        headers = {
+            "UserIP": userip
+        }
+
+        headers.update(self.default_headers)
+
         data = {
             "uname": username,
             "pwd": passwd,
             "e": email
         }
         try:
-            register_data = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/register", headers=self.default_headers, json=data)
+            register_data = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/register", headers=headers, json=data)
             if register_data.status_code == 200:
                 return True, register_data.json()['message']
             else:
@@ -68,9 +86,15 @@ class i_requests:
         except:
             return False, None
         
-    def forgot(self, email):
+    def forgot(self, userip, email):
+        headers = {
+            "UserIP": userip
+        }
+
+        headers.update(self.default_headers)
+
         try:
-            forgot_data = requests.get(f"http://{self.ip}:{self.port}/api/zako/v1/forgetpwd?email={email}", headers=self.default_headers)
+            forgot_data = requests.get(f"http://{self.ip}:{self.port}/api/zako/v1/forgetpwd?email={email}", headers=headers)
             if forgot_data.status_code == 200:
                 return True, forgot_data.json()['message']
             else:
@@ -78,14 +102,20 @@ class i_requests:
         except:
             return False, None
         
-    def resetpassword(self, email, code, passwd):
+    def resetpassword(self, userip, email, code, passwd):
+        headers = {
+            "UserIP": userip
+        }
+
+        headers.update(self.default_headers)
+
         data = {
             "email": email,
             "code": code,
             "password": passwd
         }
         try:
-            repasswd = requests.post(f"http://{self.ip}:{self.port}/api/zako/v1/forgetpwd", headers=self.default_headers, json=data)
+            repasswd = requests.post(f"http://{self.ip}:{self.port}/api/zako/v1/forgetpwd", headers=headers, json=data)
             if repasswd.status_code == 200:
                 return True, repasswd.json()['message']
             else:
@@ -93,21 +123,28 @@ class i_requests:
         except:
             return False, None
         
-    def verification(self, token):
+    def verification(self, userip, token):
+        headers = {
+            "UserIP": userip
+        }
+
+        headers.update(self.default_headers)
+
         data = {
             "code": token
         }
 
-        verification = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/verification", headers=self.default_headers, json=data)
+        verification = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/verification", headers=headers, json=data)
         if verification.status_code == 200:
             return True
         return False
 
-    def checkLogin(self, cookie):
+    def checkLogin(self, userip, cookie):
         try:
             decoded_bytes = base64.b64decode(cookie)
             Dcookie = decoded_bytes.decode('utf-8')
             headers = {
+                "UserIP": userip,
                 "Authorization": "Bearer " + Dcookie,
                 "Event": "Gi"
             }
@@ -118,6 +155,18 @@ class i_requests:
                 return False, None
         except:
             return False, None
+        
+    # 对邮箱进行base64编码的函数
+    def encode_email(self, email):
+        encoded_email = base64.b64encode(email).decode('utf-8')
+        return encoded_email
+ 
+    # 对base64编码的邮箱进行解码的函数
+    def decode_email(slef, encoded_email):
+        email_bytes = base64.b64decode(encoded_email)
+        email = email_bytes.decode('utf-8')
+        return email
+
 
 if __name__ == "__main__":
     api = i_requests("127.0.0.1", 1145)
