@@ -56,13 +56,10 @@ class i_requests:
         try:
             login_data = requests.post(url=f"http://{self.ip}:{self.port}/api/zako/v1/login", headers=headers, json=data)
             if login_data.status_code == 200:
-                print("ok")
                 return True, login_data.json()['data'], None
             else:
-                print("no")
                 return False, None, login_data.json()['message']
         except:
-            print("f")
             return False, None, None
         
     def register(self, userip, username, email, passwd):
@@ -155,17 +152,6 @@ class i_requests:
                 return False, None
         except:
             return False, None
-        
-    # 对邮箱进行base64编码的函数
-    def encode_email(self, email):
-        encoded_email = base64.b64encode(email).decode('utf-8')
-        return encoded_email
- 
-    # 对base64编码的邮箱进行解码的函数
-    def decode_email(slef, encoded_email):
-        email_bytes = base64.b64decode(encoded_email)
-        email = email_bytes.decode('utf-8')
-        return email
 
 
 if __name__ == "__main__":

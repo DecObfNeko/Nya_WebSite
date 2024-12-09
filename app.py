@@ -40,6 +40,7 @@ def mcserver():
 @app.route('/', methods=['GET', 'POST'])
 def home():
     userip = request.remote_addr # 获取用户ip
+    session['re_email'] = False # 恢复参数
 
     # 根据用户是否登录，显示不同的导航菜单项
     if request.cookies.get("MiaoWu") == None:
@@ -48,7 +49,7 @@ def home():
         try:
             # 解码用户认证cookie，获取用户信息
             cookie = request.cookies.get("MiaoWu")
-            stat, username = api.checkLogin(cookie)
+            stat, username = api.checkLogin(userip, cookie)
             if stat:
                 fhkos = f'''
             <li class="dropdown"><a href="#"><span>{username}</span> <i class="bi bi-chevron-down"></i></a>
@@ -68,9 +69,6 @@ def home():
 
     # 生成随机图片编号
     randomimg = random.randint(1, 31)
-
-    # 恢复参数
-    session['re_email'] = False
     
     # 渲染首页，传递相关变量
     return render_template('index.html', stat=stat, fhkos=fhkos, randomimg=randomimg, bans=server_data['BannedUser'],
