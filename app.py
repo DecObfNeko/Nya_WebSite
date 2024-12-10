@@ -17,9 +17,23 @@ app = Flask(__name__, static_url_path='', static_folder='templates', template_fo
 app.config['SECRET_KEY'] = 'secret!'  # 设置Flask应用的密钥，用于会话加密等
 socketio = SocketIO(app)  # 初始化SocketIO对象，绑定到Flask应用
 
+
+# 彩蛋
+@app.route('/XikMkd-IINC')
+def egg():
+    return "10,这个数字代表的是什么呢？"
+
+@app.route('/NyaCat-YYDS')
+def checkegg():
+    return "这里是彩蛋哦！" # 还没想好彩蛋页面放什么呢QAQ
+# 彩蛋END
+
+
 # 定义404错误处理函数
 @app.errorhandler(404)
 def server_error(error):
+    if random.randint(1, 100) == 50: # 1% 的概率进入彩蛋页面
+        return render_template('publichtml/egghunt.html')
     return render_template('assets/ErrPage/404.html')  # 渲染404错误页面
 
 @app.route('/repasswdErr')
