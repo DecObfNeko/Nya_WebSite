@@ -33,7 +33,7 @@ def checkegg():
 @app.errorhandler(404)
 def server_error(error):
     if random.randint(1, 100) == 50: # 1% 的概率进入彩蛋页面
-        return render_template('publichtml/egghunt.html')
+        return render_template('assets/ErrPage/egghunt.html')
     return render_template('assets/ErrPage/404.html')  # 渲染404错误页面
 
 @app.route('/repasswdErr')
@@ -168,9 +168,9 @@ def repasswd():
     return render_template('account/resetpassword.html', account=email)
 
 # 定义用户信息页面路由
-@app.route('/user/<uid>', methods=['GET'])
-def user(uid):
-    return uid
+@app.route('/user/', methods=['GET'])
+def user():
+    return render_template('publichtml/myself.html')
 
 # 主程序入口
 if __name__ == '__main__':

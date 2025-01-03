@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!--据说在某个迷失之地，会发生出乎意料的事情-->
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>NyaCat Cloud | MYSELF</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <script src="../assets/js/Event.js"></script>
+    <link href="../assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+        .hero h1 {
+            margin: 0;
+            font-size: 48px;
+            font-weight: 700;
+            color: #012970;
+        }
+        
+        .hero h2 {
+            color: #444444;
+            margin: 15px 0 0 0;
+            font-size: 26px;
+        }
+        
+        .hero {
+            width: 100%;
+            height: 100vh;
+            background: url(assets/rimages/{{randomimg}}.jpg) top center no-repeat;
+            background-size: cover;
+        }
+        
+        .hero .btn-get-started {
+            margin-top: 30px;
+            line-height: 0;
+            padding: 15px 40px;
+            border-radius: 4px;
+            transition: 0.5s;
+            color: #fff;
+            background: #4154f1;
+            box-shadow: 0px 5px 30px rgba(65, 84, 241, 0.4);
+        }
+        
+        .hero .btn-get-started span {
+            font-family: "Nunito", sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+        
+        .hero .btn-get-started i {
+            margin-left: 5px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        
+        .hero .btn-get-started:hover i {
+            transform: translateX(5px);
+        }
+        
+        .hero .hero-img {
+            text-align: right;
+        }
+        
+        @media (min-width: 1024px) {
+            .hero {
+                background-attachment: fixed;
+            }
+        }
+        
+        @media (max-width: 991px) {
+            .hero {
+                height: auto;
+                padding: 120px 0 60px 0;
+            }
+            .hero .hero-img {
+                text-align: center;
+                margin-top: 80px;
+            }
+            .hero .hero-img img {
+                width: 80%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                text-align: center;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero h2 {
+                font-size: 24px;
+            }
+            .hero .hero-img img {
+                width: 100%;
+            }
+        }
+        
+        .copy-success {
+            opacity: 1;
+            color: white;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .copy-fade {
+            opacity: 0;
+        }
+		
+		/* 侧边栏 */
+		.menus {
+		    margin-top: 120px;
+		    color: #333;
+		}
+
+		.menuli {
+		    letter-spacing: 2px;
+		    font-size: 17px;
+		    font-weight: 600;
+		    padding: 16px 12px;
+		    box-sizing: border-box;
+		    transition: 0.3s;
+		}
+
+		.menus .menuli:hover {
+		    background-color: #add8e6;
+		    /* 浅蓝色悬停效果 */
+		}
+		
+		#menu {
+			background-color: #fae9ef;
+			width: 250px;
+			height: 600px;
+		}
+    </style>
+
+    <body>
+        <header id="header" class="header fixed-top">
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+                <a href="#" class="logo d-flex align-items-center">
+                    <img src="../assets/img/logo.png" alt="">
+                    <span>NyaCat Cloud</span>
+                </a>
+
+                <nav id="navbar" class="navbar">
+                    <ul class="menuul">
+                        <li><a class="nav-link scrollto active" href="">HOME</a></li>
+                        <li><a class="nav-link scrollto" href="/mc">McServer</a></li>
+                        <li class="dropdown">
+                            <a href="#">
+                                <span>API/应用程序接入</span>
+                                <i class="bi bi-chevron-down"></i>
+                            </a>
+                            <ul class="menuul">
+                                <li><a href="/devct">开发者中心</a></li>
+                                <li><a href="/apidocs">API文档</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">
+                                <span>LEADERBOARDS</span>
+                                <i class="bi bi-chevron-down"></i>
+                            </a>
+                            <ul class="menuul">
+                                <li><a href="/nekolbs">猫粮排行榜</a></li>
+                                <li><a href="/rklbs">Ranked</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="nav-link scrollto" href="https://namemc.com/server/mc.nyacat.cloud">NAMEMC</a></li>
+                        {{ fhkos|safe }}
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+                <!-- .navbar -->
+
+            </div>
+        </header>
+		
+		<main>
+			<div id="menu">
+				<nav>
+				    <ul class="menus">
+				        <li class="menuli">QQ</li>
+				        <li class="menuli">探探</li>
+				        <li class="menuli">推特</li>
+				        <li class="menuli">ins</li>
+				        <li class="menuli">123</li>
+				    </ul>
+				</nav>
+			</div>
+		</main>
+
+        <footer id="footer" class="footer">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row gy-4">
+                        <div class="col-lg-5 col-md-12 footer-info">
+                            <a href="/" class="logo d-flex align-items-center">
+                                <img src="assets/img/logo.png" alt="">
+                                <span>NyaCat</span>
+                            </a>
+                            <p>Copyleft 2018-2024 DecobfnekoDev Industries, LLC. All Rights Reserved.</p>
+                            <p>The source of the picture resources used on this site is the Internet, if there is any infringement, please contact us to delete.</p>
+                            <a href="https://space.bilibili.com/412860241?spm_id_from=333.337.0.0"><img width="30" src="https://static.myssl.com/icon/2ed43150772156571238ad675d4a1b51" alt="BILIBILI "></a>
+                        </div>
+
+                        <div class="col-lg-3 col-6 footer-links">
+                            <h4>Useful Links</h4>
+                            <ul>
+                                <li><i class="bi bi-chevron-right"></i> <a href="/joinus">加入我们</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="/prypoy">隐私政策</a></li>
+                                <li><i class="bi bi-chevron-right"></i> <a href="/tos">服务条款</a></li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+        <script src="../assets/vendor/aos/aos.js"></script>
+        <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+        <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="../assets/vendor/php-email-form/validate.js"></script>
+        <script src="../assets/js/main.js"></script>
+
+    </body>
+
+</html>
