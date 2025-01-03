@@ -118,11 +118,14 @@
 		
 		/* 侧边栏 */
 		.menus {
-		    margin-top: 120px;
+		    margin-top: 130px;
 		    color: #333;
 		}
 
 		.menuli {
+			margin: 25px;
+			width: 160px;
+			height: 60px;
 		    letter-spacing: 2px;
 		    font-size: 17px;
 		    font-weight: 600;
@@ -132,11 +135,14 @@
 		}
 
 		.menus .menuli:hover {
-		    background-color: #add8e6;
+			border-radius: 25%;
+		    background-color: #eadbe1;
 		    /* 浅蓝色悬停效果 */
 		}
 		
 		#menu {
+			border-top-right-radius: 8%;
+			border-bottom-right-radius: 8%;
 			background-color: #fae9ef;
 			width: 250px;
 			height: 600px;
@@ -154,7 +160,7 @@
 
                 <nav id="navbar" class="navbar">
                     <ul class="menuul">
-                        <li><a class="nav-link scrollto active" href="">HOME</a></li>
+                        <li><a class="nav-link scrollto active" href="">MYSELF</a></li>
                         <li><a class="nav-link scrollto" href="/mc">McServer</a></li>
                         <li class="dropdown">
                             <a href="#">
@@ -190,11 +196,10 @@
 			<div id="menu">
 				<nav>
 				    <ul class="menus">
-				        <li class="menuli">QQ</li>
-				        <li class="menuli">探探</li>
-				        <li class="menuli">推特</li>
-				        <li class="menuli">ins</li>
-				        <li class="menuli">123</li>
+						<div class="menubuttens"><li class="menuli">基本信息</li></div>
+				        <div class="menubuttens"><li class="menuli">探探</li></div>
+				        <div class="menubuttens"><li class="menuli">推特</li></div>
+				        <div class="menubuttens"><li class="menuli">ins</li></div>
 				    </ul>
 				</nav>
 			</div>
