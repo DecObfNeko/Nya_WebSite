@@ -2,7 +2,7 @@
 
 ### 克隆仓库
 ```bash
-git clone https://github.com/yourusername/new_nya_web.git
+git clone https://github.com/DecObfNeko/Nya_WebSite.git
 cd new_nya_web
 ```
 
