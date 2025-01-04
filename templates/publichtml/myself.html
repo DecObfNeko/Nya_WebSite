@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--据说在某个迷失之地，会发生出乎意料的事情-->
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
@@ -35,7 +34,7 @@
         .hero {
             width: 100%;
             height: 100vh;
-            background: url(assets/rimages/{{randomimg}}.jpg) top center no-repeat;
+            background: url(../assets/rimages/{{randomimg}}.jpg) top center no-repeat;
             background-size: cover;
         }
         
@@ -118,34 +117,39 @@
 		
 		/* 侧边栏 */
 		.menus {
-		    margin-top: 130px;
-		    color: #333;
+			margin-top: 110px;
+            margin-left: -13px;
+			color: #333;
 		}
 
 		.menuli {
 			margin: 25px;
 			width: 160px;
 			height: 60px;
-		    letter-spacing: 2px;
-		    font-size: 17px;
-		    font-weight: 600;
-		    padding: 16px 12px;
-		    box-sizing: border-box;
-		    transition: 0.3s;
+			letter-spacing: 2px;
+			font-size: 17px;
+			font-weight: 600;
+			padding: 16px 12px;
+			box-sizing: border-box;
+			transition: 0.3s;
+			text-align: center;
+			list-style: none;
 		}
 
 		.menus .menuli:hover {
-			border-radius: 25%;
-		    background-color: #eadbe1;
-		    /* 浅蓝色悬停效果 */
+			border-radius: 4px;
+			/* 悬停效果 */
+			background-color: #EBEBEB;
 		}
 		
 		#menu {
-			border-top-right-radius: 8%;
-			border-bottom-right-radius: 8%;
-			background-color: #fae9ef;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 0px;
+			background-color: #FFFFFF;
 			width: 250px;
-			height: 600px;
+			height: 684px;
+			-webkit-box-shadow: 3px 5px 17px -3px #666666;
+			box-shadow: 3px 5px 17px -3px #666666;
 		}
     </style>
 
@@ -196,10 +200,18 @@
 			<div id="menu">
 				<nav>
 				    <ul class="menus">
-						<div class="menubuttens"><li class="menuli">基本信息</li></div>
-				        <div class="menubuttens"><li class="menuli">探探</li></div>
-				        <div class="menubuttens"><li class="menuli">推特</li></div>
-				        <div class="menubuttens"><li class="menuli">ins</li></div>
+                        <p>&nbsp;</p>
+						<div class="menubuttens">
+					        <li class="menuli">基本信息</li></div>
+				        <div class="menubuttens">
+				            <li class="menuli">连接账号</li>
+				        </div>
+				        <div class="menubuttens">
+				            <li class="menuli">MC数据 </li>
+				        </div>
+				        <div class="menubuttens">
+				            <li class="menuli">账号数据 </li>
+				        </div>
 				    </ul>
 				</nav>
 			</div>

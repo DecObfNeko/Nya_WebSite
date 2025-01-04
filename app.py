@@ -168,9 +168,10 @@ def repasswd():
     return render_template('account/resetpassword.html', account=email)
 
 # 定义用户信息页面路由
-@app.route('/user/', methods=['GET'])
+@app.route('/user', methods=['GET'])
 def user():
-    return render_template('publichtml/myself.html')
+    randomimg = random.randint(1, 31)
+    return render_template('publichtml/myself.html', randomimg=randomimg)
 
 # 主程序入口
 if __name__ == '__main__':
